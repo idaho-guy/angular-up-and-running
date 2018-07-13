@@ -7,16 +7,10 @@ import { Stock } from 'app/model/stock';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title = 'Stock Market App';
 
-  public stock: Stock;
-
   ngOnInit(): void {
-    this.stock = new Stock('Test Stock Company', 'TSC', 85, 80, 'NYSE');
   }
 
-  onToggleFavorite(stock: Stock) {
-    console.log('Favorite for stock ', stock, ' was triggered');
-    this.stock.favorite = !this.stock.favorite;
-  }
 }
