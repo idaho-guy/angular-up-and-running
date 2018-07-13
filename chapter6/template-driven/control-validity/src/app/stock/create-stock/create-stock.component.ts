@@ -7,7 +7,7 @@ import {MessageService} from "../../services/message.service";
   selector: 'app-create-stock',
   templateUrl: './create-stock.component.html',
   styleUrls: ['./create-stock.component.css'],
-  providers: [MessageService]
+  providers: [MessageService] // this providers entry creates a MessageService for this class
 })
 export class CreateStockComponent {
 
