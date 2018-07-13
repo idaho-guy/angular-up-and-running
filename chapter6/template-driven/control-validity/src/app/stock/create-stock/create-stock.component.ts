@@ -26,15 +26,13 @@ export class CreateStockComponent {
 
   createStock(stockForm) {
     if (stockForm.valid) {
-      let created = this.stockService.createStock(this.stock);
-      if (created) {
-        this.messageService.message = 'Successfully created stock with stock code: '
-          + this.stock.code;
-        this.stock =  new Stock('', '', 0, 0, 'NASDAQ');
-      } else {
-        this.messageService.message = 'Stock with stock code: ' + this.stock.code
-          + ' already exists';
-      }
+      this.stockService.createStock(this.stock)
+        .subscribe((result: any) => {
+          this.messageService.message = result.msg;
+          this.stock =  new Stock('', '', 0, 0, 'NASDAQ');
+        }, (err) => {
+          this.messageService.message = err.msg;
+        });
     } else {
       console.error('Stock form is in an invalid state');
     }
