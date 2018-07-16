@@ -36,6 +36,5 @@ export class StockListComponent implements OnInit {
         console.log('Response Type "blob" RESPONSE is ', response);
       });
   }
-  }
 
 }
