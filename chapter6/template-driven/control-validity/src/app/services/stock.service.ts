@@ -15,17 +15,8 @@ export class StockService {
 
   }
 
-  getStocks(): Observable<Stock[]> {
-    return this.http.get<Stock[]>('/api/stock', {
-      headers: new HttpHeaders()
-        .set('Authorization', 'MyAuthorizationHeaderValue')
-        .set('X-EXAMPLE-HEADER', 'TestValue'),
-      params: {
-        q: 'test',
-        test: 'value'
-      },
-      observe: 'body'
-    });
+  getStocks(query:String): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`/api/stock?q=${query}`);
   }
 
   createStock(stock: Stock): Observable<any> {

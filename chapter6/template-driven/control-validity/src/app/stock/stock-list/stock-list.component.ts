@@ -13,16 +13,22 @@ import {share} from "rxjs/operators";
 export class StockListComponent implements OnInit {
 
   public stocks$: Observable<Stock[]>;
+  public searchString: string = '';
 
   constructor(private stockService: StockService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.stocks$ = this.stockService.getStocks()
+    this.stocks$ = this.stockService.getStocks(this.searchString)
+      .pipe(share());
+  }
+
+  search() {
+    this.stocks$ = this.stockService.getStocks(this.searchString)
       .pipe(share());
   }
 
   fetchStocks() {
-    this.stocks$ = this.stockService.getStocks();
+    this.stocks$ = this.stockService.getStocks(this.searchString);
   }
 
   setAuthToken() {

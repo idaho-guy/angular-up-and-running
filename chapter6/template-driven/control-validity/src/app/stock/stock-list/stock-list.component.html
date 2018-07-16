@@ -1,3 +1,9 @@
+<div>
+  <input name="searchBox"
+         [(ngModel)]="searchString"
+         placeholder="Search Here"
+         (keyup)="search()">
+</div>
 <h2>
   We have found {{(stocks$ | async)?.length}} stocks!
 </h2>
