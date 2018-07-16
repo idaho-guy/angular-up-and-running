@@ -28,6 +28,22 @@ export class StockService {
     });
   }
 
+  createStock(stock: Stock): Observable<any> {
+    return this.http.post('/api/stock', stock);
+  }
+
+  toggleFavorite(stock: Stock): Observable<Stock> {
+    return this.http.patch<Stock>('/api/stock/' + stock.code,
+      {
+        favorite: !stock.favorite
+      });
+  }
+
+  makeFailingCall() {
+    return this.http.get('/api/fail');
+  }
+
+
   getStocksAsResponse(): Observable<HttpResponse<Stock[]>> {
     return this.http.get<Stock[]>('/api/stock', {
       observe: 'response'

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Stock} from "../../model/stock";
 import {StockService} from "../../services/stock.service";
 import {Observable} from "rxjs/Observable";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-stock-list',
@@ -12,29 +13,28 @@ export class StockListComponent implements OnInit {
 
   public stocks$: Observable<Stock[]>;
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.fetchStocks();
+  }
+
+  fetchStocks() {
     this.stocks$ = this.stockService.getStocks();
-    this.stockService.getStocksAsResponse()
-      .subscribe((response) => {
-        console.log('OBSERVE "response" RESPONSE is ', response);
-      });
+  }
 
-    this.stockService.getStocksAsEvents()
-      .subscribe((response) => {
-        console.log('OBSERVE "events" RESPONSE is ', response);
-      });
+  setAuthToken() {
+    this.authService.authToken = 'TESTING';
+  }
 
-    this.stockService.getStocksAsString()
-      .subscribe((response) => {
-        console.log('Response Type "text" RESPONSE is ', response);
-      });
+  resetAuthToken() {
+    this.authService.authToken = null;
+  }
 
-    this.stockService.getStocksAsBlob()
-      .subscribe((response) => {
-        console.log('Response Type "blob" RESPONSE is ', response);
-      });
+  makeFailingCall() {
+    this.stockService.makeFailingCall().subscribe(
+      (res) => console.log('Successfully made failing call', res),
+      (err) => console.error('Error making failing call', err));
   }
 
 }
