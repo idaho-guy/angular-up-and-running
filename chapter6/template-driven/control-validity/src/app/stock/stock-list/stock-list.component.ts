@@ -16,6 +16,26 @@ export class StockListComponent implements OnInit {
 
   ngOnInit() {
     this.stocks$ = this.stockService.getStocks();
+    this.stockService.getStocksAsResponse()
+      .subscribe((response) => {
+        console.log('OBSERVE "response" RESPONSE is ', response);
+      });
+
+    this.stockService.getStocksAsEvents()
+      .subscribe((response) => {
+        console.log('OBSERVE "events" RESPONSE is ', response);
+      });
+
+    this.stockService.getStocksAsString()
+      .subscribe((response) => {
+        console.log('Response Type "text" RESPONSE is ', response);
+      });
+
+    this.stockService.getStocksAsBlob()
+      .subscribe((response) => {
+        console.log('Response Type "blob" RESPONSE is ', response);
+      });
+  }
   }
 
 }
