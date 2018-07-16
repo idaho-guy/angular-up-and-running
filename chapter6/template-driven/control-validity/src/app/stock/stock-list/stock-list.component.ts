@@ -3,6 +3,7 @@ import {Stock} from "../../model/stock";
 import {StockService} from "../../services/stock.service";
 import {Observable} from "rxjs/Observable";
 import {AuthService} from "../../services/auth.service";
+import {share} from "rxjs/operators";
 
 @Component({
   selector: 'app-stock-list',
@@ -16,7 +17,8 @@ export class StockListComponent implements OnInit {
   constructor(private stockService: StockService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.fetchStocks();
+    this.stocks$ = this.stockService.getStocks()
+      .pipe(share());
   }
 
   fetchStocks() {
